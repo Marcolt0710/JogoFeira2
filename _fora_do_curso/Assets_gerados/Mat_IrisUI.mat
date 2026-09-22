@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Mat_IrisUI
+  m_Shader: {fileID: 4800000, guid: 493465aa7d0c46c45a80f0bc7b11c2cd, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _Aspecto: 1.7777
+    - _CentroX: 0.5
+    - _CentroY: 0.5
+    - _Raio: 1.5
+    - _Suavidade: 0.004
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
