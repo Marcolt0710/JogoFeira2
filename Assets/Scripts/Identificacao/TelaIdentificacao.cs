@@ -33,7 +33,7 @@ public class TelaIdentificacao : MonoBehaviour {
 	string faseEscolhida;  // Cena da fase que o jogador escolheu no mapa
 	bool cursorParaOFim;   // Leva o cursor para o fim do texto no próximo quadro
 
-	string AVISO_PADRAO = "Usamos só para registrar o seu tempo no ranking da feira.";
+	string AVISO_PADRAO = "Usamos só para registrar o seu tempo na feira.";
 	Color corAviso = new Color (0.43f, 0.28f, 0.16f);
 	Color corErro = new Color (0.67f, 0.16f, 0.08f);
 	Color corConfirmarApagado = new Color (0.79f, 0.63f, 0.48f);

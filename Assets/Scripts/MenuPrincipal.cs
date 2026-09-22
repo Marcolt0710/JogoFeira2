@@ -38,7 +38,9 @@ public class MenuPrincipal : MonoBehaviour
     void Start()
     {
         botaoSelecionado = 0;
-        direcaoLiberada = true;
+        // so libera depois de ler o analogico no meio: se o controle ja comeca
+        // com algum eixo torto, o menu nao pula sozinho para outro botao
+        direcaoLiberada = false;
         painelAberto = false;
         AtualizarBotoes();
     }

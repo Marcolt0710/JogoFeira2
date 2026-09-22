@@ -15,7 +15,8 @@ Feito para **controle de PlayStation** (DualShock), e o teclado também funciona
 | — | Tab | identificação: troca de campo |
 | **X** | Enter | identificação: confirma e abre a fase (no campo do nome, o Enter passa para o próximo) |
 | **Círculo** | Esc | identificação: volta ao mapa |
-| **Círculo** | Esc / Enter | dentro da fase: volta ao mapa |
+| **X** | Enter | dentro da fase (teste): conclui a fase, registra o tempo e volta ao mapa |
+| **Círculo** | Esc | dentro da fase: volta ao mapa sem registrar o tempo |
 
 No Windows o Unity numera os botões do controle do PS4 assim:
 `joystick button 0` = Quadrado, `1` = **X**, `2` = **Círculo**, `3` = Triângulo
@@ -73,7 +74,7 @@ esquerda, as imagens de lado e das diagonais são espelhadas com `flipX`.
 
 ## Os scripts
 
-Só dois, em `Assets/Scripts/MenuFase/`.
+Em `Assets/Scripts/MenuFase/`, `Identificacao/` e `Ranking/`.
 
 **`PersonagemMapa.cs`** — no Jogador.
 
@@ -88,7 +89,7 @@ Só dois, em `Assets/Scripts/MenuFase/`.
 | `public Text UITextAviso` | Apresentação de textos |
 | `KeyCode.Joystick1Button1` (botão X do PlayStation) | Entradas de dados |
 
-**`VoltarAoMapa.cs`** — nas cenas `fase01` a `fase03`. Botão Círculo (ou Esc/Enter) volta.
+**`VoltarAoMapa.cs`** — nas cenas `fase01` a `fase03`. Botão Círculo (ou Esc) volta sem registrar o tempo.
 
 **`MenuPrincipal.cs`** (em `Assets/Scripts/`) — na cena `MenuPrincipal`. X (ou Enter)
 seleciona, Círculo (ou Esc) fecha o painel.
@@ -99,10 +100,34 @@ físico, o **nome** e o **celular ou e-mail** (mesmo campo). O `PersonagemMapa` 
 escolhida em `PlayerPrefs.SetString("FaseEscolhida", ...)` e abre essa tela; ao confirmar,
 ela confere os campos (nome preenchido; e-mail com `@` e ponto, ou celular com pelo menos
 10 números), guarda `JogadorNome` e `JogadorContato` no `PlayerPrefs` e abre a fase.
-Por enquanto os dados não são enviados para lugar nenhum. O campo selecionado fica com a borda
+O `CronometroFase` e a `Planilha` usam esses dados. O campo selecionado fica com a borda
 laranja e a placa CONFIRMAR acende quando os dois campos estão certos. Fonte: Lilita One
 (Google Fonts, licença OFL em `Assets/Identificacao/Fontes/`). A cena é montada pela
 ferramenta `_fora_do_curso/Editor_Identificacao/ConstruirIdentificacao.cs`.
+
+**`CronometroFase.cs`** (em `Assets/Scripts/Ranking/`) — no objeto `Fase` das cenas
+`fase01` a `fase03`. Conta o tempo desde que a fase abriu e mostra no `TXT_TEMPO`, no alto
+da tela, junto com o nome do jogador. `Concluir()` manda o tempo para a `Planilha` e volta
+ao mapa. **Teste:** enquanto as fases não existem, o **X** (ou Enter) conclui a fase; quando
+a fase de verdade estiver pronta, tire o `TesteConcluir()` do `Update` e chame `Concluir()`
+na chegada. O **Círculo** (ou Esc) volta ao mapa sem registrar o tempo.
+
+**`Planilha.cs`** (em `Assets/Scripts/Ranking/`) — manda data, nome, contato, fase e
+segundos para a planilha do Google pelo Apps Script (`UnityWebRequest.Post` com `WWWForm`).
+Ela é criada sozinha na primeira vez e não some ao trocar de cena.
+- Cada tempo é gravado antes num **backup** no computador: `tempos_backup.csv`
+  (separado por `;`, abre no Excel) na pasta `Application.persistentDataPath`
+  (no Windows: `%USERPROFILE%\AppData\LocalLow\<empresa>\<produto>\`).
+- Sem internet, o tempo fica na **fila** (`pendentes.txt`, na mesma pasta) e é mandado
+  depois: a cada minuto e quando outro jogador terminar. Nada se perde.
+- A **URL** do Apps Script fica em `Assets/StreamingAssets/planilha.txt` (no jogo pronto:
+  `<Jogo>_Data/StreamingAssets/planilha.txt`), então dá para trocar sem abrir o Unity.
+  Sem URL, os tempos ficam só no backup.
+
+**Apps Script:** o código está em `_fora_do_curso/AppsScript/Codigo.gs`, com o passo a
+passo no começo do arquivo (colar na planilha, Implantar como App da Web para "Qualquer
+pessoa", copiar a URL `/exec` para o `planilha.txt`). Ele grava na aba `Tempos`. A senha (`dishface-feira`)
+tem que ser igual no `Codigo.gs` e no `Planilha.cs`.
 
 A porta de cada casa é um filho `Entrada` com Box Collider 2D **Is Trigger** e a tag
 `fase01`, `fase02` ou `fase03` — igual ao nome da cena.

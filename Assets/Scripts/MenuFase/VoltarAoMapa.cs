@@ -11,9 +11,10 @@ public class VoltarAoMapa : MonoBehaviour {
 	}
 
 	void VoltarParaOMapa(){
-		// Enter, Esc ou o botão Círculo do controle de PlayStation (Joystick1Button2).
+		// Esc ou o botão Círculo do controle de PlayStation (Joystick1Button2).
 		// No Windows: joystick button 0 = Quadrado, 1 = X, 2 = Círculo, 3 = Triângulo.
-		bool apertou = Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button2);
+		// Volta sem registrar o tempo (o X / Enter concluem a fase: CronometroFase).
+		bool apertou = Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button2);
 
 		if (apertou == true) {
 			SceneManager.LoadScene ("menudefase");

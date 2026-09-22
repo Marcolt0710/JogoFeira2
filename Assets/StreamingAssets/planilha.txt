@@ -1,0 +1,4 @@
+# URL do App da Web do Apps Script (termina em /exec). Cole na linha de baixo.
+# Deixe sem URL para guardar os tempos só no computador (tempos_backup.csv).
+# Como criar: _fora_do_curso/AppsScript/Codigo.gs
+
