@@ -243,6 +243,9 @@ public static class ArrumarMenuFase
                 Debug.Log("[Simular] de " + inicios[k] + " para " + dir + " parou em " + corpo.position);
             }
         }
+        // Religa a fisica automatica: se ficar desligada o Unity salva isso
+        // no Physics2DSettings e o personagem nao anda mais no jogo.
+        Physics2D.autoSimulation = true;
     }
 
     static void Teste(Tilemap colisao, string nome, Vector2 ponto)
