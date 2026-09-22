@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/fase03.unity
     guid: 8868716df51c3524dbd9cdce59e84990
+  - enabled: 1
+    path: Assets/Identificacao/identificacao.unity
+    guid: 4ebf9c5b447f92848b0288288c97770e

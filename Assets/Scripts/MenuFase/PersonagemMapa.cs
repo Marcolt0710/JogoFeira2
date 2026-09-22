@@ -138,8 +138,11 @@ public class PersonagemMapa : MonoBehaviour {
 		bool apertou = Input.GetKeyDown (KeyCode.Joystick1Button1) || Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Return);
 
 		// Só entra se o personagem estiver na porta de alguma casa.
+		// Antes da fase, abre a tela em que o jogador se identifica.
+		// A fase escolhida fica guardada para a tela de identificação abrir depois.
 		if (apertou == true && FasePerto != "") {
-			SceneManager.LoadScene (FasePerto);
+			PlayerPrefs.SetString ("FaseEscolhida", FasePerto);
+			SceneManager.LoadScene ("identificacao");
 		}
 	}
 

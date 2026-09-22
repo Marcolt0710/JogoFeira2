@@ -10,7 +10,11 @@ Feito para **controle de PlayStation** (DualShock), e o teclado também funciona
 | Analógico esquerdo ou D-Pad | WASD / setas | anda nas 8 direções (e escolhe o botão no menu principal) |
 | **X** | Enter / espaço | menu principal: seleciona (JOGAR abre o mapa de fases) |
 | **Círculo** | Esc | menu principal: fecha o painel aberto |
-| **X** | Z / Enter | mapa: entra na casa (quando está na porta) |
+| **X** | Z / Enter | mapa: entra na casa (quando está na porta) e abre a tela de identificação |
+| — | teclado físico | identificação: digita o nome e o celular ou e-mail |
+| — | Tab | identificação: troca de campo |
+| **X** | Enter | identificação: confirma e abre a fase (no campo do nome, o Enter passa para o próximo) |
+| **Círculo** | Esc | identificação: volta ao mapa |
 | **Círculo** | Esc / Enter | dentro da fase: volta ao mapa |
 
 No Windows o Unity numera os botões do controle do PS4 assim:
@@ -88,6 +92,17 @@ Só dois, em `Assets/Scripts/MenuFase/`.
 
 **`MenuPrincipal.cs`** (em `Assets/Scripts/`) — na cena `MenuPrincipal`. X (ou Enter)
 seleciona, Círculo (ou Esc) fecha o painel.
+
+**`TelaIdentificacao.cs`** (em `Assets/Scripts/Identificacao/`) — na cena
+`Assets/Identificacao/identificacao.unity`. Antes de cada fase o jogador digita, num teclado
+físico, o **nome** e o **celular ou e-mail** (mesmo campo). O `PersonagemMapa` guarda a fase
+escolhida em `PlayerPrefs.SetString("FaseEscolhida", ...)` e abre essa tela; ao confirmar,
+ela confere os campos (nome preenchido; e-mail com `@` e ponto, ou celular com pelo menos
+10 números), guarda `JogadorNome` e `JogadorContato` no `PlayerPrefs` e abre a fase.
+Por enquanto os dados não são enviados para lugar nenhum. O campo selecionado fica com a borda
+laranja e a placa CONFIRMAR acende quando os dois campos estão certos. Fonte: Lilita One
+(Google Fonts, licença OFL em `Assets/Identificacao/Fontes/`). A cena é montada pela
+ferramenta `_fora_do_curso/Editor_Identificacao/ConstruirIdentificacao.cs`.
 
 A porta de cada casa é um filho `Entrada` com Box Collider 2D **Is Trigger** e a tag
 `fase01`, `fase02` ou `fase03` — igual ao nome da cena.
